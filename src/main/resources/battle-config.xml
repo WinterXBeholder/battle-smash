@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+    Define "beans" here.
+    A bean definition registers an instance of a data type with the DI container.
+    -->
+
+    <!-- announcer and location beans -->
+    <bean id="announcerJared" class="learn.battle.announcers.ProperAnnouncer"/>
+    <bean id="Japan" class="learn.battle.environment.Location">
+        <constructor-arg value="Japan"/>
+    </bean>
+
+
+
+    <!-- four fighter beans -->
+    <bean id="fighter1" class="learn.battle.fighters.Fighter">
+        <constructor-arg value="fighter1"/>
+    </bean>
+    <bean id="fighter2" class="learn.battle.fighters.Fighter">
+        <constructor-arg value="fighter1"/>
+    </bean>
+    <bean id="fighter3" class="learn.battle.fighters.Fighter">
+        <constructor-arg value="fighter3"/>
+    </bean>
+    <bean id="fighter4" class="learn.battle.fighters.Fighter">
+        <constructor-arg value="fighter4"/>
+    </bean>
+
+
+
+    <!-- Battle bean, depends on location and fighters.
+    Sets announcer property after construction -->
+    <bean class="learn.battle.environment.Battle">
+        <constructor-arg value="Japan"/>
+
+        <constructor-arg>
+            <list>
+                <ref bean="fighter1"/>
+                <ref bean="fighter2"/>
+                <ref bean="fighter3"/>
+                <ref bean="fighter4"/>
+            </list>
+        </constructor-arg>
+
+        <property name="announcer" ref="announcerJared"/>
+    </bean>
+
+</beans>
